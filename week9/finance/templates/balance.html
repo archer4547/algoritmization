@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Balance
+{% endblock %}
+
+{% block main %}
+
+    <div>
+        <form action="/balance" method="post">
+            <input name="balance" type="submit" class="btn btn-primary" value="Current balance">
+            <input name="withdraw" type="submit" class="btn btn-primary" value="Withdraw">
+            <input name="deposit" type="submit" class="btn btn-primary" value="Deposit">
+            <input name="history" type="submit" class="btn btn-primary" value="History">
+        </form>
+    </div>
+
+    {% if content == "balance" %}
+        <br><br>Current balance: {{cash | usd}}
+    {% elif content == "withdraw" %}
+    <br><br>
+        <div>
+            <form action="/balance" method="post">
+                <div class="mb-3">
+                    <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="w_amount" placeholder="Amount" type="number" min="1">
+                </div>
+
+                <div class="mb-3">
+                    <input autocomplete="off" class="form-control mx-auto w-auto" name="w_card" placeholder="Card number" type="number" min="1">
+                </div>
+
+                <div class="mb-3">
+                    <input autocomplete="off" class="form-control mx-auto w-auto" name="w_confirmation" placeholder='"yes" if you are sure' type="text">
+                </div>
+
+                <button class="btn btn-primary" type="submit">Withdraw</button>
+            </form>
+        </div>
+    {% elif content == "deposit" %}
+    <br><br>
+        <div>
+            <form action="/balance" method="post">
+                <div class="mb-3">
+                    <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="d_amount" placeholder="Amount" type="number" min="1">
+                </div>
+
+                <div class="mb-3">
+                    <input autocomplete="off" class="form-control mx-auto w-auto" name="d_card" placeholder="Card number" type="number" min="1">
+                </div>
+
+                <div class="mb-3">
+                    <input autocomplete="off" class="form-control mx-auto w-auto" name="d_confirmation" placeholder='"yes" if you are sure' type="text">
+                </div>
+
+                <button class="btn btn-primary" type="submit">Deposit</button>
+            </form>
+        </div>
+    {% elif content == "history" %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="text-start">Type</th>
+                <th>Amount</th>
+                <th>Card</th>
+                <th class="text-end">Transacted</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+                <tr>
+                    <td class="text-start">{{row["type"]}}</td>
+                    <td>{{row["amount"] | usd}}</td>
+                    <td>{{row["card"]}}</td>
+                    <td class="text-end">{{row["time"]}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% elif content == "succes" %}
+        <br><br> Succes!
+    {% endif %}
+
+{% endblock %}
