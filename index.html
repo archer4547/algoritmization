@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+        <script>
+            document.addEventListener('DOMContentLoaded', function(){
+
+
+                let Correct = document.querySelector('.M_Cor');
+                Correct.addEventListener('click', function(){
+                    Correct.style.backgroundColor = 'green';
+                    document.querySelector('#M_Answer').innerHTML = 'Correct!';
+                });
+
+
+                let Incorrects = document.querySelectorAll('.M_Inc');
+                for (let i = 0; i < Incorrects.length; i++){
+                    Incorrects[i].addEventListener('click', function(){
+                        Incorrects[i].style.backgroundColor = 'red';
+                        document.querySelector('#M_Answer').innerHTML = 'Incorrect';
+                    });
+                };
+
+
+                document.querySelector('#ResponseCheck').addEventListener('click', function(){
+                    let answer = document.querySelector('input');
+                    if (answer.value == '<!DOCTYPE html>'){
+                        document.querySelector('input').style.backgroundColor = 'green';
+                        document.querySelector('#F_Answer').innerHTML = 'Correct!';
+                    }
+                    else{
+                        document.querySelector('input').style.backgroundColor = 'red';
+                        document.querySelector('#F_Answer').innerHTML = 'Incorrect';
+                    }
+                });
+
+
+            });
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+                <h3>What is not a programming language?</h3>
+                <button class="M_Inc">C</button>
+                <button class="M_Inc">Python</button>
+                <button class="M_Cor">HTML</button>
+                <button class="M_Inc">JavaScript</button>
+                <p id="M_Answer"></p>
+            </div>
+
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+                <hr>
+                <h3>How to declarate that web page uses HTML5 (including < and >)</h3>
+                <input type="text">
+                <button id="ResponseCheck">Check</button>
+                <p id="F_Answer"></p>
+            </div>
+        </div>
+    </body>
+</html>
